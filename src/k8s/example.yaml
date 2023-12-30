@@ -1,0 +1,100 @@
+apiVersion: "databend.datafuselabs.com/v1"
+kind: DatabendCloud
+metadata:
+  name: test-databand
+  namespace: databand
+spec:
+  users: []
+  meta:
+    size: 3
+    image:
+      registry:
+      repository: datafuselabs/databend-meta
+      pullPolicy: IfNotPresent
+      tag: ""
+      imagePullSecrets: []
+    serviceAccount:
+    service:
+      type: ClusterIP
+      ports:
+        admin: 28002
+        grpc: 9191
+    env: []
+    config:
+      logLevel: INFO
+      stdLogLevel: WARN
+    persistence:
+      enabled: true
+      storageClass: ""
+      size: 10Gi
+    resources:
+       limits:
+         cpu: 500m
+         memory: 512Mi
+       requests:
+         cpu: 100m
+         memory: 128Mi
+    nodeSelector: { }
+    tolerations: [ ]
+    affinity: { }
+  query:
+    size: 3
+    image:
+      registry:
+      repository: datafuselabs/databend-query
+      pullPolicy: IfNotPresent
+      tag: ""
+      imagePullSecrets: []
+    serviceAccount:
+    service:
+      type: ClusterIP
+      ports:
+        metric: 7070
+        admin: 8080
+        flight: 9090
+        http: 8000
+        flight-sql: 8900
+        mysql: 3307
+        ckhttp: 8124
+    env: [ ]
+    config:
+    storage:
+      type: "s3"
+      # [storage.s3]
+      s3:
+        bucket: "databend"
+        endpoint_url: "https://s3.amazonaws.com"
+        access_key_id: ""
+        secret_access_key: ""
+        enable_virtual_host_style: false
+    cache:
+      enabled: false
+      path: "/var/lib/databend/cache"
+      maxBytes: 21474836480
+      storageClass: ""
+      size: 100Gi
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+    nodeSelector: { }
+    tolerations: [ ]
+    affinity: { }
+status:
+  state: ready
+  haproxy:
+    labelSelectorPath:
+    image: ''
+    ready: 3
+    size: 3
+    status: ready
+  conditions: []
+  pxc:
+    image: ''
+    labelSelectorPath:
+    ready: 3
+    size: 3
+    status: ready
