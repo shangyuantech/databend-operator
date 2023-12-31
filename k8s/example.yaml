@@ -1,8 +1,8 @@
 apiVersion: "databend.datafuselabs.com/v1"
 kind: DatabendCluster
 metadata:
-  name: test-databand
-  namespace: databand
+  name: test-databend
+  namespace: databend
 spec:
   users: [ ]
   meta:
@@ -86,16 +86,18 @@ spec:
     affinity: { }
 status:
   state: ready
-  haproxy:
+  meta:
     labelSelectorPath:
+    service: ''
     image: ''
     ready: 3
     size: 3
-    status: ready
+    state: ready
   conditions: [ ]
-  pxc:
+  query:
     image: ''
+    service: ''
     labelSelectorPath:
     ready: 3
     size: 3
-    status: ready
+    state: ready

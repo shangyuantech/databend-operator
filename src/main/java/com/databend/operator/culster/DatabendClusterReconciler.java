@@ -1,7 +1,10 @@
 package com.databend.operator.culster;
 
+import com.databend.operator.common.type.StateType;
 import com.databend.operator.common.util.JsonUtils;
 import com.databend.operator.culster.crd.DatabendCluster;
+import com.databend.operator.culster.crd.DatabendClusterStatus;
+import com.databend.operator.culster.crd.status.MetaStatus;
 import com.databend.operator.culster.dependent.MetaServiceResource;
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.javaoperatorsdk.operator.api.reconciler.*;
@@ -15,10 +18,11 @@ import static com.databend.operator.common.KubeConstants.*;
 
 @ControllerConfiguration(
         dependents = {
-                @Dependent(type = MetaServiceResource.class, name = "meta-service"),
+                @Dependent(type = MetaServiceResource.class),
         })
 public class DatabendClusterReconciler implements Reconciler<DatabendCluster>,
-        ContextInitializer<DatabendCluster>{
+        ContextInitializer<DatabendCluster>,
+        Cleaner<DatabendCluster> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabendClusterReconciler.class);
 
@@ -47,11 +51,23 @@ public class DatabendClusterReconciler implements Reconciler<DatabendCluster>,
         LOGGER.info("Register Databend Cluster {}/{} with spec: {}", namespace, name, JsonUtils.toJson(spec));
 
         // create/update databend-meta
-        return UpdateControl.noUpdate();
+
+        // update status
+        DatabendClusterStatus status = new DatabendClusterStatus();
+        MetaStatus metaStatus = new MetaStatus();
+        metaStatus.setState(StateType.ready);
+        status.setState(StateType.ready);
+        status.setMeta(metaStatus);
+        cluster.setStatus(status);
+
+        return UpdateControl.updateStatus(cluster);
     }
 
-//    @Override
-//    public DeleteControl cleanup(DatabendCluster dc, Context<DatabendCluster> context) {
-//        return DeleteControl.defaultDelete();
-//    }
+    @Override
+    public DeleteControl cleanup(DatabendCluster cluster, Context<DatabendCluster> context) {
+        final var namespace = cluster.getMetadata().getNamespace();
+        final var name = cluster.getMetadata().getName();
+        LOGGER.info("Delete Databend Cluster {}/{} ", namespace, name);
+        return DeleteControl.defaultDelete();
+    }
 }

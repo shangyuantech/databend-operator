@@ -1,16 +1,19 @@
 # Databend Operator
 
-Ê¹ÓÃ Ìá¹© Databend µÄÔÆÔ­Éú Operator ·şÎñ
+ä½¿ç”¨ æä¾› Databend çš„äº‘åŸç”Ÿ Operator æœåŠ¡
 
-## CRD Éú³É
+## CRD ç”Ÿæˆ
 
-Ê¹ÓÃ fabric8 [CRD generation](https://github.com/fabric8io/kubernetes-client/blob/main/doc/CRD-generator.md) ¹¦ÄÜ£¬¿ÉÒÔÌá¹© CRD µÄ³õÊ¼»¯ Yaml¡£
+ä½¿ç”¨ fabric8 [CRD generation](https://github.com/fabric8io/kubernetes-client/blob/main/doc/CRD-generator.md) åŠŸèƒ½ï¼Œå¯ä»¥æä¾› CRD çš„åˆå§‹åŒ– Yamlã€‚
 
 ```shell
-# ¹¹½¨±àÒë
+# æ„å»ºç¼–è¯‘
 mvn clean install
-# ±àÒëºó£¬¿ÉÒÔÔÚÈçÏÂÄ¿Â¼²é¿´Éú³ÉµÄ CRD ÎÄ¼ş
+# ç¼–è¯‘åï¼Œå¯ä»¥åœ¨å¦‚ä¸‹ç›®å½•æŸ¥çœ‹ç”Ÿæˆçš„ CRD æ–‡ä»¶
 ls target/classes/META-INF/fabric8/
 databendclusters.databend.datafuselabs.com-v1.yml  databendclusters.databend.datafuselabs.com-v1beta1.yml
+## æµ‹è¯•æäº¤
+kubectl apply -f target/classes/META-INF/fabric8/databendclusters.databend.datafuselabs.com-v1.yml
+kubectl replace -f target/classes/META-INF/fabric8/databendclusters.databend.datafuselabs.com-v1.yml
 ```
 

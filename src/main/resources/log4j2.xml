@@ -9,5 +9,7 @@
         <Root level="info">
             <AppenderRef ref="Console"/>
         </Root>
+        <Logger name="com.databend" level="${env:LOG4J2_APP_DATABEND:-debug}"/>
+        <Logger name="io.javaoperatorsdk.operator" level="${env:LOG4J2_APP_OPERATOR:-info}"/>
     </Loggers>
 </Configuration>

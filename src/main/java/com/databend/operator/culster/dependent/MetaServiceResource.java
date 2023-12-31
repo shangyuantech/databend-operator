@@ -10,7 +10,7 @@ import io.javaoperatorsdk.operator.api.reconciler.Context;
 import io.javaoperatorsdk.operator.processing.dependent.Creator;
 import io.javaoperatorsdk.operator.processing.dependent.Matcher;
 import io.javaoperatorsdk.operator.processing.dependent.Updater;
-import io.javaoperatorsdk.operator.processing.dependent.kubernetes.KubernetesDependentResource;
+import io.javaoperatorsdk.operator.processing.dependent.kubernetes.CRUDKubernetesDependentResource;
 import org.apache.commons.lang3.StringUtils;
 import org.jooq.lambda.tuple.Tuple3;
 import org.slf4j.Logger;
@@ -20,9 +20,7 @@ import java.util.Objects;
 
 import static com.databend.operator.common.KubeConstants.ClusterIP;
 
-public class MetaServiceResource extends KubernetesDependentResource<Service, DatabendCluster> implements
-        Creator<Service, DatabendCluster>,
-        Updater<Service, DatabendCluster>,
+public class MetaServiceResource extends CRUDKubernetesDependentResource<Service, DatabendCluster> implements
         Matcher<Service, DatabendCluster> {
 
     public static final Integer DEFAULT_ADMIN_PORT = 28002;
@@ -73,12 +71,14 @@ public class MetaServiceResource extends KubernetesDependentResource<Service, Da
                 // admin
                 .addNewPort()
                 .withName("admin")
+                .withProtocol("TCP")
                 .withPort(serviceConfig.v1)
                 .withNewTargetPort().withValue("admin").endTargetPort()
                 .endPort()
                 // grpc
                 .addNewPort()
                 .withName("grpc")
+                .withProtocol("TCP")
                 .withPort(serviceConfig.v2)
                 .withNewTargetPort().withValue("grpc").endTargetPort()
                 .endPort()
