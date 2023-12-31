@@ -2,6 +2,7 @@ package com.databend.operator.common.util;
 
 import com.databend.operator.common.KubeConstants;
 import io.fabric8.kubernetes.api.model.EnvVar;
+import io.fabric8.kubernetes.api.model.HasMetadata;
 import io.fabric8.kubernetes.api.model.ObjectMeta;
 import io.fabric8.kubernetes.api.model.ObjectMetaBuilder;
 import io.javaoperatorsdk.operator.api.reconciler.Context;
@@ -63,5 +64,13 @@ public class K8sUtils {
         final var result = new HashMap<String, String>(envVars.size());
         envVars.forEach(e -> result.put(e.getName(), e.getValue()));
         return result;
+    }
+
+    /**
+     * Get annotation value
+     */
+    public static String getAnnotation(HasMetadata metadata, String key, String defaultValue) {
+        if (metadata.getMetadata().getAnnotations() == null) return defaultValue;
+        return metadata.getMetadata().getAnnotations().getOrDefault(key, defaultValue);
     }
 }

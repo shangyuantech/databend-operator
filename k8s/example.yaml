@@ -54,7 +54,7 @@ spec:
         admin: 8080
         flight: 9090
         http: 8000
-        flight-sql: 8900
+        flightSql: 8900
         mysql: 3307
         ckhttp: 8124
     env: [ ]

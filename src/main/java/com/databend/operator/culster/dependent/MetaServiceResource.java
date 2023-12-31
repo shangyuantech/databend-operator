@@ -7,9 +7,7 @@ import io.fabric8.kubernetes.api.model.Service;
 import io.fabric8.kubernetes.api.model.ServiceBuilder;
 import io.fabric8.kubernetes.api.model.ServicePort;
 import io.javaoperatorsdk.operator.api.reconciler.Context;
-import io.javaoperatorsdk.operator.processing.dependent.Creator;
 import io.javaoperatorsdk.operator.processing.dependent.Matcher;
-import io.javaoperatorsdk.operator.processing.dependent.Updater;
 import io.javaoperatorsdk.operator.processing.dependent.kubernetes.CRUDKubernetesDependentResource;
 import org.apache.commons.lang3.StringUtils;
 import org.jooq.lambda.tuple.Tuple3;
@@ -61,6 +59,9 @@ public class MetaServiceResource extends CRUDKubernetesDependentResource<Service
         final var labels = K8sUtils.getContextLabels(context);
 
         Tuple3<Integer, Integer, String> serviceConfig = getServiceConfig(cluster);
+        // todo At present, an exception may occur when the service pacth after modifying the port.
+        //      This problem is not solved for the time being
+        //      https://github.com/kubernetes-client/python/issues/641
         Service service = new ServiceBuilder()
                 .withMetadata(K8sUtils.createMetadata(namespace, String.format("%s-databend-meta", name), labels))
                 .withNewSpec()

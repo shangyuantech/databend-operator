@@ -14,10 +14,10 @@ public interface KubeConstants {
     String LABELS_CONTEXT_KEY = "labels";
 
     String OPERATOR_NAME = "databend-operator";
+    String DATABEND_CLUSTER_INSTANCE_NAME = "databend-cluster";
 
     String DEFAULT_APPLICATION_VERSION = "1.0.0";
-
-    String DATABEND_CLUSTER_INSTANCE_NAME = "databend-cluster";
+    String META_BOOSTRAP = "databend/meta-boostrap";
 
     String ClusterIP = "ClusterIP";
 }
