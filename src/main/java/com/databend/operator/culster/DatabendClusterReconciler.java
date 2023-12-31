@@ -1,6 +1,6 @@
-package com.databend.operator;
+package com.databend.operator.culster;
 
-import com.databend.operator.crd.DatabendCluster;
+import com.databend.operator.culster.crd.DatabendCluster;
 import io.javaoperatorsdk.operator.api.reconciler.*;
 import io.javaoperatorsdk.operator.processing.event.source.EventSource;
 

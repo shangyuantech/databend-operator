@@ -1,12 +1,15 @@
-package com.databend.operator.crd;
+package com.databend.operator.culster.crd;
 
-import com.databend.operator.crd.spec.DatabendMeta;
-import com.databend.operator.crd.spec.DatabendQuery;
-import com.databend.operator.crd.spec.DatabendUser;
+import com.databend.operator.culster.crd.spec.meta.DatabendMeta;
+import com.databend.operator.culster.crd.spec.DatabendQuery;
+import com.databend.operator.culster.crd.spec.DatabendUser;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.List;
 
@@ -17,6 +20,7 @@ import java.util.List;
 )
 public class DatabendClusterSpec {
 
+    @JsonPropertyDescription("Databend users")
     private List<DatabendUser> users;
 
     private DatabendMeta meta;
@@ -45,5 +49,9 @@ public class DatabendClusterSpec {
 
     public void setQuery(DatabendQuery query) {
         this.query = query;
+    }
+
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
     }
 }

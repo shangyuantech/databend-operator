@@ -4,7 +4,7 @@ metadata:
   name: test-databand
   namespace: databand
 spec:
-  users: []
+  users: [ ]
   meta:
     size: 3
     image:
@@ -12,28 +12,29 @@ spec:
       repository: datafuselabs/databend-meta
       pullPolicy: IfNotPresent
       tag: ""
-      imagePullSecrets: []
+      imagePullSecrets: [ ]
     serviceAccount:
     service:
       type: ClusterIP
       ports:
         admin: 28002
         grpc: 9191
-    env: []
+    env: [ ]
     config:
       logLevel: INFO
       stdLogLevel: WARN
-    persistence:
+    storage:
       enabled: true
       storageClass: ""
       size: 10Gi
+      mountPath: /data/databend-meta
     resources:
-       limits:
-         cpu: 500m
-         memory: 512Mi
-       requests:
-         cpu: 100m
-         memory: 128Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
     nodeSelector: { }
     tolerations: [ ]
     affinity: { }
@@ -44,7 +45,7 @@ spec:
       repository: datafuselabs/databend-query
       pullPolicy: IfNotPresent
       tag: ""
-      imagePullSecrets: []
+      imagePullSecrets: [ ]
     serviceAccount:
     service:
       type: ClusterIP
@@ -91,7 +92,7 @@ status:
     ready: 3
     size: 3
     status: ready
-  conditions: []
+  conditions: [ ]
   pxc:
     image: ''
     labelSelectorPath:
