@@ -1,4 +1,4 @@
-package com.databend.operator.culster.crd.spec.common;
+package com.databend.operator.culster.crd.spec.meta;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -6,33 +6,32 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import io.fabric8.kubernetes.api.model.ResourceRequirements;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonDeserialize(
         using = JsonDeserializer.None.class
 )
-public class Resources {
+public class MetaService {
 
-    private ResourceRequirements requests;
+    private String serviceType;
 
-    private ResourceRequirements limits;
+    private MetaPorts ports;
 
-    public ResourceRequirements getRequests() {
-        return requests;
+    public String getServiceType() {
+        return serviceType;
     }
 
-    public void setRequests(ResourceRequirements requests) {
-        this.requests = requests;
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
     }
 
-    public ResourceRequirements getLimits() {
-        return limits;
+    public MetaPorts getPorts() {
+        return ports;
     }
 
-    public void setLimits(ResourceRequirements limits) {
-        this.limits = limits;
+    public void setPorts(MetaPorts ports) {
+        this.ports = ports;
     }
 
     public String toString() {

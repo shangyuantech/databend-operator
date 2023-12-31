@@ -1,4 +1,4 @@
-package com.databend.operator.culster.crd.spec.common;
+package com.databend.operator.culster.crd.spec;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

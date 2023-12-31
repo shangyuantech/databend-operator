@@ -1,5 +1,5 @@
 apiVersion: "databend.datafuselabs.com/v1"
-kind: DatabendCloud
+kind: DatabendCluster
 metadata:
   name: test-databand
   namespace: databand
@@ -15,7 +15,7 @@ spec:
       imagePullSecrets: [ ]
     serviceAccount:
     service:
-      type: ClusterIP
+      serviceType: ClusterIP
       ports:
         admin: 28002
         grpc: 9191

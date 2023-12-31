@@ -1,8 +1,7 @@
 package com.databend.operator.culster.crd.spec.meta;
 
-import com.databend.operator.culster.crd.spec.common.DatabendImage;
-import com.databend.operator.culster.crd.spec.common.DatabendService;
-import com.databend.operator.culster.crd.spec.common.Resources;
+import com.databend.operator.culster.crd.spec.DatabendImage;
+import com.databend.operator.common.crd.Resources;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -23,7 +22,7 @@ public class DatabendMeta {
 
     private String serviceAccount;
 
-    private DatabendService<MetaPorts> service;
+    private MetaService service;
 
     private Resources resources;
 
@@ -51,11 +50,11 @@ public class DatabendMeta {
         this.serviceAccount = serviceAccount;
     }
 
-    public DatabendService<MetaPorts> getService() {
+    public MetaService getService() {
         return service;
     }
 
-    public void setService(DatabendService<MetaPorts> service) {
+    public void setService(MetaService service) {
         this.service = service;
     }
 
